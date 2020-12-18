@@ -1,6 +1,6 @@
 package com.udemy.projeto.services;
 
-import com.udemy.projeto.domain.Category;
+import com.udemy.projeto.model.Category;
 import com.udemy.projeto.repositoies.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

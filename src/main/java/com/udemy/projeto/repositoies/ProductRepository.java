@@ -1,10 +1,10 @@
 package com.udemy.projeto.repositoies;
 
-import com.udemy.projeto.model.Category;
+import com.udemy.projeto.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 }
