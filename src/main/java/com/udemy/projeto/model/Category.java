@@ -1,5 +1,7 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,15 +10,16 @@ import java.util.List;
 
 @Entity
 public class Category implements Serializable {
-     private  static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1l;
 
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Integer id;
-     private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String name;
 
-     @ManyToMany(mappedBy = "categories")
-     private List<Product> products = new ArrayList<>();
+    @JsonManagedReference //para não dar associação ciclica, essa anotação vem do lado que desejar que venha os objs associados
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }

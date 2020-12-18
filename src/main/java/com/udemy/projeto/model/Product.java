@@ -1,5 +1,7 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.List;
 
 @Entity
 public class Product implements Serializable {
-    private  static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1l;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +17,16 @@ public class Product implements Serializable {
     private String name;
     private Double price;
 
-    //anotações para definir o relacionamento de muitos para muitos da tabela
-    @ManyToMany
+    @JsonBackReference //para acertar associação ciclica
+    @ManyToMany //anotações para definir o relacionamento de muitos para muitos da tabela
     @JoinTable(
             name = "PRODUCT_CATEGORY",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
-            )
+    )
     private List<Category> categories = new ArrayList<>();
 
-    public Product(){
+    public Product() {
     }
 
     public Product(Integer id, String name, Double price) {

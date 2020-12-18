@@ -2,11 +2,13 @@ package com.udemy.projeto.services;
 
 import com.udemy.projeto.model.Category;
 import com.udemy.projeto.repositoies.CategoryRepository;
+import com.udemy.projeto.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+//classe responsável por fazer a consulta no repositório
 @Service
 public class CategoryService {
 
@@ -15,6 +17,7 @@ public class CategoryService {
 
     public Category find(Integer id) {
         Optional<Category> obj = categoryRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
     }
 }

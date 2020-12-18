@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/categories")
+@RequestMapping(value = "/categories")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){
-    //? pq pode ser de qlq tipo e ele pode encontrar ou não
+    public ResponseEntity<?> find(@PathVariable Integer id) {
+        //? pq pode ser de qlq tipo e ele pode encontrar ou não
 
-        Category category = categoryService.find(id);
-        return ResponseEntity.ok().body(category); //ocorreu tudo bem então mostre o objeto category
+            Category category = categoryService.find(id);
+            return ResponseEntity.ok().body(category); //ocorreu tudo bem então mostre o objeto category
     }
 }
