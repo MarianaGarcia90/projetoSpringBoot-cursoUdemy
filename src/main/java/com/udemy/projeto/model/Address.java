@@ -1,5 +1,8 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,9 +19,11 @@ public class Address implements Serializable{
     private String neighborhood;
     private String zipcode;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
 
     @ManyToOne
     @JoinColumn(name = "city_id")

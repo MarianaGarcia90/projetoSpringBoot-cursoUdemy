@@ -1,5 +1,7 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,6 +14,7 @@ public class City implements Serializable {
     private Integer id;
     private String name;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "state_id")
     private State state;

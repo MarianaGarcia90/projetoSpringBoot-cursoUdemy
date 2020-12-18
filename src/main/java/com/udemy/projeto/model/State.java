@@ -1,5 +1,8 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,11 +17,11 @@ public class State implements Serializable {
     private Integer id;
     private String name;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "state")
     private List<City> cities = new ArrayList<>();
 
     public State(){
-
     }
 
     public State(Integer id, String name) {
