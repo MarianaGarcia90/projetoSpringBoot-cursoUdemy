@@ -1,8 +1,6 @@
 package com.udemy.projeto.controller;
 
-import com.udemy.projeto.model.Category;
 import com.udemy.projeto.model.Client;
-import com.udemy.projeto.services.CategoryService;
 import com.udemy.projeto.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +18,10 @@ public class ClientController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id) {
+        //? pq pode ser de qlq tipo e ele pode encontrar ou não
 
-        Client category = clientService.find(id);
-        return ResponseEntity.ok().body(category);
+        Client client = clientService.find(id);
+        return ResponseEntity.ok().body(client); //ocorreu tudo bem então mostre o objeto category
     }
 
 }

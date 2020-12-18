@@ -30,6 +30,8 @@ public class Client implements Serializable {
     @CollectionTable(name = "PHONE")
     private Set<String> phone =  new HashSet<>();//dessa forma já garante que não terá repetição de números
 
+    private List<Order> orders = new ArrayList<>();
+
     public Client(){
     }
 
@@ -99,6 +101,14 @@ public class Client implements Serializable {
 
     public void setPhone(Set<String> phone) {
         this.phone = phone;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
