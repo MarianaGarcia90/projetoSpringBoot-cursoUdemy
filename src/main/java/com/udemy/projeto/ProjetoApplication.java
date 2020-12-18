@@ -1,13 +1,8 @@
 package com.udemy.projeto;
 
-import com.udemy.projeto.model.Category;
-import com.udemy.projeto.model.City;
-import com.udemy.projeto.model.Product;
-import com.udemy.projeto.model.State;
-import com.udemy.projeto.repositoies.CategoryRepository;
-import com.udemy.projeto.repositoies.CityRepository;
-import com.udemy.projeto.repositoies.ProductRepository;
-import com.udemy.projeto.repositoies.StateRepository;
+import com.udemy.projeto.model.*;
+import com.udemy.projeto.model.enums.ClientType;
+import com.udemy.projeto.repositoies.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +22,10 @@ public class ProjetoApplication implements CommandLineRunner {
     private StateRepository stateRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ProjetoApplication.class, args);
@@ -64,5 +63,15 @@ public class ProjetoApplication implements CommandLineRunner {
         stateRepository.saveAll(Arrays.asList(est1, est2));
         cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
+        Client cli1 = new Client(null, "Maria Silva", "mariasilva@gmail.com", "330.638.005-98", ClientType.PESSOAFISICA);
+        cli1.getPhone().addAll(Arrays.asList("3328-7780", "4581-7821"));
+
+        Address e1 = new Address(null, "Rua Flores", "885", "Apto 12A", "Jordãnia", "13214-658", cli1, c1);
+        Address e2 = new Address(null, "Av. Matos", "5032", "Sala 10 Primeiro andar", "Centro", "13000-018", cli1, c2);
+
+        cli1.getAddresses().addAll(Arrays.asList(e1, e2));
+
+        clientRepository.saveAll(Arrays.asList(cli1));
+        addressRepository.saveAll(Arrays.asList(e1, e2));
     }
 }

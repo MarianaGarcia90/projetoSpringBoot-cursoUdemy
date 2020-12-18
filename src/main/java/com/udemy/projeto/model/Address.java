@@ -1,10 +1,14 @@
 package com.udemy.projeto.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class Address implements Serializable{
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String address;
     private String number;
@@ -12,8 +16,12 @@ public class Address implements Serializable{
     private String neighborhood;
     private String zipcode;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 
     public Address(){

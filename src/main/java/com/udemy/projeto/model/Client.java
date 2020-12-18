@@ -2,23 +2,30 @@ package com.udemy.projeto.model;
 
 import com.udemy.projeto.model.enums.ClientType;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 public class Client implements Serializable {
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String email;
     private String cpfOrCnpj;
     private Integer type;
 
+    @OneToMany(mappedBy = "client")
     private List<Address> addresses= new ArrayList<>();
 
+    @ElementCollection //para entidade fraca
+    @CollectionTable(name = "PHONE")
     private Set<String> phone =  new HashSet<>();//dessa forma já garante que não terá repetição de números
 
     public Client(){
