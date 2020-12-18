@@ -1,9 +1,13 @@
 package com.udemy.projeto;
 
 import com.udemy.projeto.model.Category;
+import com.udemy.projeto.model.City;
 import com.udemy.projeto.model.Product;
+import com.udemy.projeto.model.State;
 import com.udemy.projeto.repositoies.CategoryRepository;
+import com.udemy.projeto.repositoies.CityRepository;
 import com.udemy.projeto.repositoies.ProductRepository;
+import com.udemy.projeto.repositoies.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +23,10 @@ public class ProjetoApplication implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private StateRepository stateRepository;
+    @Autowired
+    private CityRepository cityRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ProjetoApplication.class, args);
@@ -42,5 +50,19 @@ public class ProjetoApplication implements CommandLineRunner {
 
         categoryRepository.saveAll(Arrays.asList(cat1, cat2));
         productRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+        State est1 = new State(null, "Minas Gerais");
+        State est2 = new State(null, "São Paulo");
+
+        City c1 = new City(null, "Uberlândia", est1);
+        City c2 = new City(null, "São Paulo", est2);
+        City c3 = new City(null, "Campinas", est2);
+
+        est1.getCities().addAll(Arrays.asList(c1));
+        est2.getCities().addAll(Arrays.asList(c2, c3));
+
+        stateRepository.saveAll(Arrays.asList(est1, est2));
+        cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+
     }
 }
