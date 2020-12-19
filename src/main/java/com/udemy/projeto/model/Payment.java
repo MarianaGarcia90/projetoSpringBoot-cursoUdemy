@@ -2,14 +2,20 @@ package com.udemy.projeto.model;
 
 import com.udemy.projeto.model.enums.PaymentState;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class Payment implements Serializable {
     private static final long serialVersionUID = 1l;
 
+    @Id
     private Integer id;
     private PaymentState paymentState;
 
+    @OneToOne
+    @JoinColumn(name = "order_id") //essas duas anotações (Join e Maps) são para manter o mesmo id para order e payment
+    @MapsId
     private Order order;
 
     private Client client;

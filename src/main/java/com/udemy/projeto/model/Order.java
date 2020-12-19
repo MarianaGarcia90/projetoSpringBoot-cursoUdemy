@@ -1,14 +1,19 @@
 package com.udemy.projeto.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Order implements Serializable {
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Date instant;
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order") //para acertar a transição
     private Payment payment;
 
     public Order(){}
