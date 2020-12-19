@@ -104,11 +104,11 @@ public class Costumer implements Serializable {
         this.phone = phone;
     }
 
-    public List<Pedido> getOrders() {
+    public List<Pedido> getPedidos() {
         return pedidos;
     }
 
-    public void setOrders(List<Pedido> pedidos) {
+    public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
 

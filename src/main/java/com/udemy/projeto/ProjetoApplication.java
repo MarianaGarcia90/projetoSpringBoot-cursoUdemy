@@ -2,6 +2,7 @@ package com.udemy.projeto;
 
 import com.udemy.projeto.model.*;
 import com.udemy.projeto.model.enums.ClientType;
+import com.udemy.projeto.model.enums.PaymentState;
 import com.udemy.projeto.repositoies.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +28,10 @@ public class ProjetoApplication implements CommandLineRunner {
     private CostumerRepository costumerRepository;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ProjetoApplication.class, args);
@@ -74,5 +79,22 @@ public class ProjetoApplication implements CommandLineRunner {
 
         costumerRepository.saveAll(Arrays.asList(cli1));
         addressRepository.saveAll(Arrays.asList(e1, e2));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:30"), cli1, e1);
+        Pedido ped2 = new Pedido(null, sdf.parse("10/10/2018 18:40"), cli1, e2);
+
+        Payment pagto1 = new PaymentCard(null, PaymentState.QUITADO, ped1, 6);
+        ped1.setPayment(pagto1);
+
+        Payment pagto2 = new PaymentSlip(null, PaymentState.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+        ped2.setPayment(pagto2);
+
+        cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+
+        orderRepository.saveAll(Arrays.asList(ped1, ped2));
+        paymentRepository.saveAll(Arrays.asList(pagto1, pagto2));
+
     }
 }

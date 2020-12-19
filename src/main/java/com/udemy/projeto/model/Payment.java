@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //para herança, ai escolher se vai ficar tudo num tabelão ou tabelinhas q precisam de join dpois
-public class Payment implements Serializable {
+public abstract class Payment implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
     private Integer id;
-    private PaymentState paymentState;
+    private Integer paymentState;
 
     @OneToOne
     @JoinColumn(name = "pedido_id") //essas duas anotações (Join e Maps) são para manter o mesmo id para pedido e payment
@@ -23,7 +23,7 @@ public class Payment implements Serializable {
 
     public Payment(Integer id, PaymentState paymentState, Pedido pedido) {
         this.id = id;
-        this.paymentState = paymentState;
+        this.paymentState = paymentState.getCod();
         this.pedido = pedido;
     }
 
@@ -36,11 +36,11 @@ public class Payment implements Serializable {
     }
 
     public PaymentState getPaymentState() {
-        return paymentState;
+        return PaymentState.toEnum(paymentState);
     }
 
     public void setPaymentState(PaymentState paymentState) {
-        this.paymentState = paymentState;
+        this.paymentState = paymentState.getCod();
     }
 
     public Pedido getPedido() {
