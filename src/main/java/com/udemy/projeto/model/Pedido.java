@@ -3,6 +3,8 @@ package com.udemy.projeto.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -23,6 +25,8 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    private Set<Item> items = new HashSet<>(); //para não repetir
 
     public Pedido(){}
 
@@ -71,6 +75,14 @@ public class Pedido implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Set<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
 
     @Override
