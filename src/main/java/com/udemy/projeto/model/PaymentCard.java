@@ -2,6 +2,9 @@ package com.udemy.projeto.model;
 
 import com.udemy.projeto.model.enums.PaymentState;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PaymentCard extends Payment{
     private static final long serialVersionUID = 1l;
 
@@ -10,8 +13,8 @@ public class PaymentCard extends Payment{
     public PaymentCard(){
     }
 
-    public PaymentCard(Integer id, PaymentState paymentState, Order order, Client client, Address address, Integer numberOfInstallments) {
-        super(id, paymentState, order, client, address);
+    public PaymentCard(Integer id, PaymentState paymentState, Pedido pedido, Integer numberOfInstallments) {
+        super(id, paymentState, pedido);
         this.numberOfInstallments = numberOfInstallments;
     }
 

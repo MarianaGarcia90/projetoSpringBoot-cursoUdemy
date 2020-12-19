@@ -1,7 +1,6 @@
 package com.udemy.projeto.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,9 +20,8 @@ public class Address implements Serializable{
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
+    @JoinColumn(name = "costumer_id")
+    private Costumer costumer;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
@@ -32,14 +30,14 @@ public class Address implements Serializable{
     public Address(){
     }
 
-    public Address(Integer id, String address, String number, String complement, String neighborhood, String zipcode, Client client, City city) {
+    public Address(Integer id, String address, String number, String complement, String neighborhood, String zipcode, Costumer costumer, City city) {
         this.id = id;
         this.address = address;
         this.number = number;
         this.complement = complement;
         this.neighborhood = neighborhood;
         this.zipcode = zipcode;
-        this.client = client;
+        this.costumer = costumer;
         this.city = city;
     }
 
@@ -95,12 +93,12 @@ public class Address implements Serializable{
         this.zipcode = zipcode;
     }
 
-    public Client getClient() {
-        return client;
+    public Costumer getClient() {
+        return costumer;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClient(Costumer costumer) {
+        this.costumer = costumer;
     }
 
     public City getCity() {

@@ -2,8 +2,10 @@ package com.udemy.projeto.model;
 
 import com.udemy.projeto.model.enums.PaymentState;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class PaymentSlip extends Payment {
     private static final long serialVersionUID = 1l;
 
@@ -13,8 +15,8 @@ public class PaymentSlip extends Payment {
     public PaymentSlip() {
     }
 
-    public PaymentSlip(Integer id, PaymentState paymentState, Order order, Client client, Address address, Date dueDate, Date payday) {
-        super(id, paymentState, order, client, address);
+    public PaymentSlip(Integer id, PaymentState paymentState, Pedido pedido, Date dueDate, Date payday) {
+        super(id, paymentState, pedido);
         this.dueDate = dueDate;
         this.payday = payday;
     }

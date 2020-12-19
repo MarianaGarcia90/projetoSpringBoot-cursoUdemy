@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Client implements Serializable {
+public class Costumer implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
@@ -23,19 +23,20 @@ public class Client implements Serializable {
     private Integer type;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "costumer")
     private List<Address> addresses= new ArrayList<>();
 
     @ElementCollection //para entidade fraca
     @CollectionTable(name = "PHONE")
     private Set<String> phone =  new HashSet<>();//dessa forma já garante que não terá repetição de números
 
-    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "costumer")
+    private List<Pedido> pedidos = new ArrayList<>();
 
-    public Client(){
+    public Costumer(){
     }
 
-    public Client(Integer id, String name, String email, String cpfOrCnpj, ClientType type) {
+    public Costumer(Integer id, String name, String email, String cpfOrCnpj, ClientType type) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -103,22 +104,22 @@ public class Client implements Serializable {
         this.phone = phone;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<Pedido> getOrders() {
+        return pedidos;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Client)) return false;
+        if (!(o instanceof Costumer)) return false;
 
-        Client client = (Client) o;
+        Costumer costumer = (Costumer) o;
 
-        return getId().equals(client.getId());
+        return getId().equals(costumer.getId());
     }
 
     @Override

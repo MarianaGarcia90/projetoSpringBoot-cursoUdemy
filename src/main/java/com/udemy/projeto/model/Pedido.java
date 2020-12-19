@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Order implements Serializable {
+public class Pedido implements Serializable {
     private static final long serialVersionUID = 1l;
 
     @Id
@@ -13,15 +13,24 @@ public class Order implements Serializable {
     private Integer id;
     private Date instant;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order") //para acertar a transição
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //para acertar a transição
     private Payment payment;
 
-    public Order(){}
+    @ManyToOne
+    @JoinColumn(name = "costumer_id")
+    private Costumer costumer;
 
-    public Order(Integer id, Date instant, Payment payment) {
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    public Pedido(){}
+
+    public Pedido(Integer id, Date instant, Costumer costumer, Address address) {
         this.id = id;
         this.instant = instant;
-        this.payment = payment;
+        this.costumer = costumer;
+        this.address = address;
     }
 
     public Integer getId() {
@@ -48,14 +57,30 @@ public class Order implements Serializable {
         this.payment = payment;
     }
 
+    public Costumer getCostumer() {
+        return costumer;
+    }
+
+    public void setCostumer(Costumer costumer) {
+        this.costumer = costumer;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Order)) return false;
+        if (!(o instanceof Pedido)) return false;
 
-        Order order = (Order) o;
+        Pedido pedido = (Pedido) o;
 
-        return getId().equals(order.getId());
+        return getId().equals(pedido.getId());
     }
 
     @Override

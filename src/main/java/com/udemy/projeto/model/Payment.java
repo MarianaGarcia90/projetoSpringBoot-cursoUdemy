@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) //para herança, ai escolher se vai ficar tudo num tabelão ou tabelinhas q precisam de join dpois
 public class Payment implements Serializable {
     private static final long serialVersionUID = 1l;
 
@@ -14,22 +15,16 @@ public class Payment implements Serializable {
     private PaymentState paymentState;
 
     @OneToOne
-    @JoinColumn(name = "order_id") //essas duas anotações (Join e Maps) são para manter o mesmo id para order e payment
+    @JoinColumn(name = "pedido_id") //essas duas anotações (Join e Maps) são para manter o mesmo id para pedido e payment
     @MapsId
-    private Order order;
-
-    private Client client;
-
-    private Address address;
+    private Pedido pedido;
 
     public Payment(){}
 
-    public Payment(Integer id, PaymentState paymentState, Order order, Client client, Address address) {
+    public Payment(Integer id, PaymentState paymentState, Pedido pedido) {
         this.id = id;
         this.paymentState = paymentState;
-        this.order = order;
-        this.client = client;
-        this.address = address;
+        this.pedido = pedido;
     }
 
     public Integer getId() {
@@ -48,28 +43,12 @@ public class Payment implements Serializable {
         this.paymentState = paymentState;
     }
 
-    public Order getOrder() {
-        return order;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     @Override

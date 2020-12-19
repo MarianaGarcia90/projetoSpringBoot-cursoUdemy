@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 //CommandLineRunner permite adicionar mais um método para auxiliar o programa
@@ -23,7 +24,7 @@ public class ProjetoApplication implements CommandLineRunner {
     @Autowired
     private CityRepository cityRepository;
     @Autowired
-    private ClientRepository clientRepository;
+    private CostumerRepository costumerRepository;
     @Autowired
     private AddressRepository addressRepository;
 
@@ -63,7 +64,7 @@ public class ProjetoApplication implements CommandLineRunner {
         stateRepository.saveAll(Arrays.asList(est1, est2));
         cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-        Client cli1 = new Client(null, "Maria Silva", "mariasilva@gmail.com", "330.638.005-98", ClientType.PESSOAFISICA);
+        Costumer cli1 = new Costumer(null, "Maria Silva", "mariasilva@gmail.com", "330.638.005-98", ClientType.PESSOAFISICA);
         cli1.getPhone().addAll(Arrays.asList("3328-7780", "4581-7821"));
 
         Address e1 = new Address(null, "Rua Flores", "885", "Apto 12A", "Jordãnia", "13214-658", cli1, c1);
@@ -71,7 +72,7 @@ public class ProjetoApplication implements CommandLineRunner {
 
         cli1.getAddresses().addAll(Arrays.asList(e1, e2));
 
-        clientRepository.saveAll(Arrays.asList(cli1));
+        costumerRepository.saveAll(Arrays.asList(cli1));
         addressRepository.saveAll(Arrays.asList(e1, e2));
     }
 }
