@@ -1,5 +1,7 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.udemy.projeto.model.enums.ClientType;
 
@@ -30,6 +32,7 @@ public class Costumer implements Serializable {
     @CollectionTable(name = "PHONE")
     private Set<String> phone =  new HashSet<>();//dessa forma já garante que não terá repetição de números
 
+    @JsonBackReference //pedidos não serializados
     @OneToMany(mappedBy = "costumer")
     private List<Pedido> pedidos = new ArrayList<>();
 

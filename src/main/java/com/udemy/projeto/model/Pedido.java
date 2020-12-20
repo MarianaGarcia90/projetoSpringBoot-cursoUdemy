@@ -1,5 +1,8 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,29 +16,33 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //para acertar a transição
     private Payment payment;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "costumer_id")
     private Costumer costumer;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @JoinColumn(name = "delivery_address_id")
+    private Address deliveryAddress;
 
     @OneToMany(mappedBy = "id.pedido")
     private Set<Item> items = new HashSet<>(); //para não repetir
 
     public Pedido(){}
 
-    public Pedido(Integer id, Date instant, Costumer costumer, Address address) {
+    public Pedido(Integer id, Date instant, Costumer costumer, Address deliveryAddress) {
         this.id = id;
         this.instant = instant;
         this.costumer = costumer;
-        this.address = address;
+        this.deliveryAddress = deliveryAddress;
     }
 
     public Integer getId() {
@@ -70,12 +77,12 @@ public class Pedido implements Serializable {
         this.costumer = costumer;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDeliveryAddress(Address deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     public Set<Item> getItems() {

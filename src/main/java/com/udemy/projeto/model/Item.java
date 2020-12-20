@@ -1,5 +1,7 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.util.Objects;
 public class Item implements Serializable {
     private static final long serialVersionUID = 1l;
 
+    @JsonIgnore //não serializa ngm
     @EmbeddedId //id embutido num tipo auxiliar
     private ItemPK id = new ItemPK();
 
@@ -59,6 +62,7 @@ public class Item implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
     }

@@ -1,6 +1,7 @@
 package com.udemy.projeto.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class Product implements Serializable {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<Item> items = new HashSet<>();
 
@@ -41,6 +43,7 @@ public class Product implements Serializable {
     }
 
     //para criar lista de pedidos
+    @JsonIgnore
     public List<Pedido> getPedidos() {
         List<Pedido> list = new ArrayList<>();
         for(Item x: items){

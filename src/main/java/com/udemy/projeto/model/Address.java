@@ -1,6 +1,7 @@
 package com.udemy.projeto.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -93,6 +94,7 @@ public class Address implements Serializable{
         this.zipcode = zipcode;
     }
 
+    @JsonIgnore
     public Costumer getClient() {
         return costumer;
     }
