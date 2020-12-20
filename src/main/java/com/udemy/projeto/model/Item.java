@@ -1,12 +1,15 @@
 package com.udemy.projeto.model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Item implements Serializable {
     private static final long serialVersionUID = 1l;
 
+    @EmbeddedId //id embutido num tipo auxiliar
     private ItemPK id = new ItemPK();
 
     private Double discount;

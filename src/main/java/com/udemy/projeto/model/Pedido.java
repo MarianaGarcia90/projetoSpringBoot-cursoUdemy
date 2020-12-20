@@ -26,6 +26,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @OneToMany(mappedBy = "id.pedido")
     private Set<Item> items = new HashSet<>(); //para não repetir
 
     public Pedido(){}
