@@ -1,6 +1,6 @@
 package com.udemy.projeto.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.udemy.projeto.model.enums.PaymentState;
 
 import javax.persistence.*;
@@ -15,7 +15,7 @@ public abstract class Payment implements Serializable {
     private Integer id;
     private Integer paymentState;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id") //essas duas anotações (Join e Maps) são para manter o mesmo id para pedido e payment
     @MapsId

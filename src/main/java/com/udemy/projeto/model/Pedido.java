@@ -1,7 +1,6 @@
 package com.udemy.projeto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,11 +19,9 @@ public class Pedido implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
-    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //para acertar a transição
     private Payment payment;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "costumer_id")
     private Costumer costumer;

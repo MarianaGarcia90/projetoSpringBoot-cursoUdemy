@@ -1,6 +1,5 @@
 package com.udemy.projeto.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -20,7 +19,7 @@ public class Product implements Serializable {
     private String name;
     private Double price;
 
-    @JsonBackReference //para acertar associação ciclica
+    @JsonIgnore
     @ManyToMany //anotações para definir o relacionamento de muitos para muitos da tabela
     @JoinTable(
             name = "PRODUCT_CATEGORY",
