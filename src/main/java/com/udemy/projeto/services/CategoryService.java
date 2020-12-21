@@ -2,8 +2,10 @@ package com.udemy.projeto.services;
 
 import com.udemy.projeto.model.Category;
 import com.udemy.projeto.repositoies.CategoryRepository;
+import com.udemy.projeto.services.exceptions.DataIntregityException;
 import com.udemy.projeto.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,5 +31,16 @@ public class CategoryService {
     public Category update(Category category) {
         find(category.getId());
         return categoryRepository.save(category);
+    }
+
+    public void delete(Integer id) {
+        find(id);
+        try {
+            categoryRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DataIntregityException("Não é possível excuir uma categoria que possui produtos!");
+        }
+
     }
 }
