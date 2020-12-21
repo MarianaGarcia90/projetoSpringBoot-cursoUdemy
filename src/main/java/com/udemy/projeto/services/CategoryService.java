@@ -1,5 +1,6 @@
 package com.udemy.projeto.services;
 
+import com.udemy.projeto.dto.CategoryDTO;
 import com.udemy.projeto.model.Category;
 import com.udemy.projeto.repositoies.CategoryRepository;
 import com.udemy.projeto.services.exceptions.DataIntregityException;
@@ -55,5 +56,9 @@ public class CategoryService {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction),
                 orderBy);
         return categoryRepository.findAll(pageRequest);
+    }
+
+    public Category fromDTO(CategoryDTO categoryDTO) {
+        return new Category(categoryDTO.getId(), categoryDTO.getName());
     }
 }

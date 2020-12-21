@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +28,8 @@ public class CategoryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Category category) { //void para retornar um body vazio quando ocorrer com sucesso
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO categoryDTO) { //void para retornar um body vazio quando ocorrer com sucesso
+        Category category = categoryService.fromDTO(categoryDTO);
         category = categoryService.insert(category);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(category.getId()).toUri();
@@ -35,7 +37,8 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Category category, @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO categoryDTO, @PathVariable Integer id) {
+        Category category = categoryService.fromDTO(categoryDTO);
         category.setId(id);
         category = categoryService.update(category);
         return ResponseEntity.noContent().build();
@@ -64,4 +67,6 @@ public class CategoryController {
         Page<CategoryDTO> categoryDTOList = categoryList.map(category -> new CategoryDTO(category));
         return ResponseEntity.ok().body(categoryDTOList);
     }
+
+
 }
