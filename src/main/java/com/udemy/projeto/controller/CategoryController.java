@@ -4,6 +4,7 @@ import com.udemy.projeto.dto.CategoryDTO;
 import com.udemy.projeto.model.Category;
 import com.udemy.projeto.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -50,6 +51,17 @@ public class CategoryController {
     public ResponseEntity<List<CategoryDTO>> findAll() {
         List<Category> categoryList = categoryService.findAll();
         List<CategoryDTO> categoryDTOList = categoryList.stream().map(category -> new CategoryDTO(category)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoryDTOList);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoryDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name")String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC")String direction) {
+        Page<Category> categoryList = categoryService.findPage(page, linesPerPage, orderBy, direction);
+        Page<CategoryDTO> categoryDTOList = categoryList.map(category -> new CategoryDTO(category));
         return ResponseEntity.ok().body(categoryDTOList);
     }
 }
