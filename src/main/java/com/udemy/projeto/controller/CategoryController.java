@@ -17,18 +17,23 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
-        //? pq pode ser de qlq tipo e ele pode encontrar ou não
-
+    public ResponseEntity<Category> find(@PathVariable Integer id) {
             Category category = categoryService.find(id);
             return ResponseEntity.ok().body(category); //ocorreu tudo bem então mostre o objeto category
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Category category) {
+    public ResponseEntity<Void> insert(@RequestBody Category category) { //void para retornar um body vazio quando ocorrer com sucesso
         category = categoryService.insert(category);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(category.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody Category category, @PathVariable Integer id) {
+        category.setId(id);
+        category = categoryService.update(category);
+        return ResponseEntity.noContent().build();
     }
 }

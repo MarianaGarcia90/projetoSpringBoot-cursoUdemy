@@ -17,9 +17,7 @@ public class CostumerController {
     private CostumerService costumerService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
-        //? pq pode ser de qlq tipo e ele pode encontrar ou não
-
+    public ResponseEntity<Costumer> find(@PathVariable Integer id) {
         Costumer costumer = costumerService.find(id);
         return ResponseEntity.ok().body(costumer); //ocorreu tudo bem então mostre o objeto category
     }

@@ -25,4 +25,9 @@ public class CategoryService {
         category.setId(null); //se já tiver Id é pq é atualização e não inserção
         return categoryRepository.save(category);
     }
+
+    public Category update(Category category) {
+        find(category.getId());
+        return categoryRepository.save(category);
+    }
 }
