@@ -1,5 +1,6 @@
 package com.udemy.projeto.controller;
 
+import com.udemy.projeto.dto.CategoryDTO;
 import com.udemy.projeto.model.Category;
 import com.udemy.projeto.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -41,5 +44,12 @@ public class CategoryController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<Category> categoryList = categoryService.findAll();
+        List<CategoryDTO> categoryDTOList = categoryList.stream().map(category -> new CategoryDTO(category)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoryDTOList);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 //classe responsável por fazer a consulta no repositório
@@ -41,6 +42,9 @@ public class CategoryService {
         catch (DataIntegrityViolationException e) {
             throw new DataIntregityException("Não é possível excuir uma categoria que possui produtos!");
         }
+    }
 
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 }
