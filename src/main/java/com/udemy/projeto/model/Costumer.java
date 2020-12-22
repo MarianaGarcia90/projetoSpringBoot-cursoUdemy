@@ -19,6 +19,8 @@ public class Costumer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @Column(unique = true) //faz o banco garantir q não vai ter repetição nesse banco
     private String email;
     private String cpfOrCnpj;
     private Integer type;
