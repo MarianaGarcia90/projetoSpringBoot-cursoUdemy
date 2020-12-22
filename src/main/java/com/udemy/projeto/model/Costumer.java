@@ -23,7 +23,7 @@ public class Costumer implements Serializable {
     private String cpfOrCnpj;
     private Integer type;
 
-    @OneToMany(mappedBy = "costumer")
+    @OneToMany(mappedBy = "costumer", cascade = CascadeType.ALL)
     private List<Address> addresses= new ArrayList<>();
 
     @ElementCollection //para entidade fraca
