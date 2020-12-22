@@ -1,7 +1,7 @@
 package com.udemy.projeto;
 
 import com.udemy.projeto.model.*;
-import com.udemy.projeto.model.enums.ClientType;
+import com.udemy.projeto.model.enums.CostumerType;
 import com.udemy.projeto.model.enums.PaymentState;
 import com.udemy.projeto.repositoies.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +76,7 @@ public class ProjetoApplication implements CommandLineRunner {
         stateRepository.saveAll(Arrays.asList(est1, est2));
         cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-        Costumer cli1 = new Costumer(null, "Maria Silva", "mariasilva@gmail.com", "330.638.005-98", ClientType.PESSOAFISICA);
+        Costumer cli1 = new Costumer(null, "Maria Silva", "mariasilva@gmail.com", "330.638.005-98", CostumerType.PESSOAFISICA);
         cli1.getPhone().addAll(Arrays.asList("3328-7780", "4581-7821"));
 
         Address e1 = new Address(null, "Rua Flores", "885", "Apto 12A", "Jordãnia", "13214-658", cli1, c1);

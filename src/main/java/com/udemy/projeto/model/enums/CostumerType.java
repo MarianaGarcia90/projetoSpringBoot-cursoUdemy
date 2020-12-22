@@ -1,13 +1,13 @@
 package com.udemy.projeto.model.enums;
 
-public enum ClientType {
+public enum CostumerType {
     PESSOAFISICA(1, "Pessoa Física"),
     PESSOAJURIDICA(2, "Pessoa Jurídica");
 
     private int cod;
     private String description;
 
-    private ClientType(int cod, String description){
+    private CostumerType(int cod, String description){
         this.cod = cod;
         this.description = description;
     }
@@ -20,13 +20,13 @@ public enum ClientType {
         return description;
     }
 
-    public static ClientType toEnum(Integer cod){
+    public static CostumerType toEnum(Integer cod){
 
         if(cod==null){
             return null;
         }
 
-        for(ClientType x : ClientType.values()){
+        for(CostumerType x : CostumerType.values()){
             if(cod.equals(x.getCod())){
                 return x;
             }

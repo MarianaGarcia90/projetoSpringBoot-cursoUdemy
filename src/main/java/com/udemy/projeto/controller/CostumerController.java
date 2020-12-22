@@ -1,16 +1,17 @@
 package com.udemy.projeto.controller;
 
-import com.udemy.projeto.dto.CategoryDTO;
 import com.udemy.projeto.dto.CostumerDTO;
-import com.udemy.projeto.model.Category;
+import com.udemy.projeto.dto.NewCostumerDTO;
 import com.udemy.projeto.model.Costumer;
 import com.udemy.projeto.services.CostumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,15 @@ public class CostumerController {
         Page<Costumer> costumerList = costumerService.findPage(page, linesPerPage, orderBy, direction);
         Page<CostumerDTO> costumerDTOList = costumerList.map(costumer -> new CostumerDTO(costumer));
         return ResponseEntity.ok().body(costumerDTOList);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody NewCostumerDTO newCostumerDTO) { //void para retornar um body vazio quando ocorrer com sucesso
+        Costumer costumer = costumerService.fromNewDTO(newCostumerDTO);
+        costumer = costumerService.insert(costumer);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(costumer.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }

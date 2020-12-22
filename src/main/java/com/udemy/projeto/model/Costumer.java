@@ -2,7 +2,7 @@ package com.udemy.projeto.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.udemy.projeto.model.enums.ClientType;
+import com.udemy.projeto.model.enums.CostumerType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,7 +37,7 @@ public class Costumer implements Serializable {
     public Costumer(){
     }
 
-    public Costumer(Integer id, String name, String email, String cpfOrCnpj, ClientType type) {
+    public Costumer(Integer id, String name, String email, String cpfOrCnpj, CostumerType type) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -81,11 +81,11 @@ public class Costumer implements Serializable {
         this.cpfOrCnpj = cpfOrCnpj;
     }
 
-    public ClientType getType() {
-        return ClientType.toEnum(type);
+    public CostumerType getType() {
+        return CostumerType.toEnum(type);
     }
 
-    public void setType(ClientType type) {
+    public void setType(CostumerType type) {
         this.type = type.getCod();
     }
 
