@@ -1,11 +1,13 @@
 package com.udemy.projeto.dto;
 
 import com.udemy.projeto.model.Costumer;
+import com.udemy.projeto.services.validation.CostumerUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@CostumerUpdate
 public class CostumerDTO {
     private static final long serialVersionUID = 1l;
 
