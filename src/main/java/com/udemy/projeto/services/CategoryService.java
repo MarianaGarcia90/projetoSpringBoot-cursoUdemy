@@ -34,9 +34,14 @@ public class CategoryService {
     }
 
     public Category update(Category category) {
-        find(category.getId());
-        return categoryRepository.save(category);
+        Category newCategory = find(category.getId());
+        updateData(newCategory, category);
+        return categoryRepository.save(newCategory);
     }
+
+    private void updateData(Category newCategory, Category category) {
+        newCategory.setName(category.getName());
+    } //para atualizar somente nome e email no update
 
     public void delete(Integer id) {
         find(id);
