@@ -30,6 +30,10 @@ public class Item implements Serializable {
         this.price = price;
     }
 
+    public double getSubTotal() {
+        return (price - discount) * amount;
+    }
+
     public ItemPK getId() {
         return id;
     }
