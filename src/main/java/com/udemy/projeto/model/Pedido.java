@@ -42,6 +42,14 @@ public class Pedido implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
+    public double getAmount(){
+        double sum = 0.0;
+        for(Item item : items){
+            sum = sum + item.getSubTotal();
+        }
+        return sum;
+    }
+
     public Integer getId() {
         return id;
     }
