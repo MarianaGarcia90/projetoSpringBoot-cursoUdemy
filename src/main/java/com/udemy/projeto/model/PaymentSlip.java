@@ -1,12 +1,14 @@
 package com.udemy.projeto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.udemy.projeto.model.enums.PaymentState;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PaymentSlip extends Payment {
     private static final long serialVersionUID = 1l;
 

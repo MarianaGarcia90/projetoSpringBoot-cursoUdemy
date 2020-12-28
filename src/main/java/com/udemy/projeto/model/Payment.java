@@ -1,6 +1,7 @@
 package com.udemy.projeto.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.udemy.projeto.model.enums.PaymentState;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //para herança, ai escolher se vai ficar tudo num tabelão ou tabelinhas q precisam de join dpois
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") // a classe vai ter um campo adicional type
 public abstract class Payment implements Serializable {
     private static final long serialVersionUID = 1l;
 

@@ -1,10 +1,12 @@
 package com.udemy.projeto.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.udemy.projeto.model.enums.PaymentState;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PaymentCard extends Payment{
     private static final long serialVersionUID = 1l;
 
