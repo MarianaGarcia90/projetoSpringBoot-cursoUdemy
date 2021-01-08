@@ -19,7 +19,7 @@ public class OrderController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Pedido> find(@PathVariable Integer id) {
         Pedido pedido = orderService.find(id);
-        return ResponseEntity.ok().body(pedido); //ocorreu tudo bem então mostre o objeto category
+        return ResponseEntity.ok().body(pedido); //ocorreu tudo bem então mostre o objeto
     }
 
     @RequestMapping(method = RequestMethod.POST)

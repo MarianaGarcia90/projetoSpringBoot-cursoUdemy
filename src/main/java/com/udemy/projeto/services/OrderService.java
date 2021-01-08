@@ -4,6 +4,7 @@ import com.udemy.projeto.model.Item;
 import com.udemy.projeto.model.PaymentSlip;
 import com.udemy.projeto.model.Pedido;
 import com.udemy.projeto.model.enums.PaymentState;
+import com.udemy.projeto.repositoies.CostumerRepository;
 import com.udemy.projeto.repositoies.ItemRepository;
 import com.udemy.projeto.repositoies.OrderRepository;
 import com.udemy.projeto.repositoies.PaymentRepository;
@@ -34,11 +35,14 @@ public class OrderService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
     }
+    @Autowired
+    private CostumerService costumerService;
 
     @Transactional
     public Pedido insert(Pedido pedido) {
         pedido.setId(null);
         pedido.setInstant(new Date());
+        pedido.setCostumer(costumerService.find(pedido.getCostumer().getId()));
         pedido.getPayment().setPaymentState(PaymentState.PENDENTE);
         pedido.getPayment().setPedido(pedido);
         if (pedido.getPayment() instanceof PaymentSlip) {
@@ -49,10 +53,12 @@ public class OrderService {
         paymentRepository.save(pedido.getPayment());
         for (Item item : pedido.getItems()) {
             item.setDiscount(0.0);
-            item.setPrice(productService.find(item.getProduct().getId()).getPrice());
+            item.setProduct(productService.find(item.getProduct().getId()));
+            item.setPrice(item.getProduct().getPrice());
             item.setPedido(pedido);
         }
         itemRepository.saveAll(pedido.getItems());
+        System.out.println(pedido);
         return pedido;
     }
 }
